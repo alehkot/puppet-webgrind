@@ -46,6 +46,6 @@ class webgrind($domain = 'webgrind.drupal.dev') {
   exec { 'php-move-webgrind':
     command => "cp -r /tmp/webgrind/* /usr/share/php/webgrind/source",
     creates => "/usr/share/php/webgrind/source/index.php",
-    require => [ Exec['php-extract-webgrind'], File['/var/www/webgrind.nooku.vagrant/source'] ],
+    require => [ Exec['php-extract-webgrind'], Exec['exec mkdir -p /usr/share/php/webgrind/source'] ],
   }
 }
