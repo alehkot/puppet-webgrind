@@ -17,7 +17,7 @@
 # This class requires the apache class from PuppetLabs.
 class webgrind($domain = 'webgrind.drupal.dev') {   
   exec { 'exec mkdir -p /usr/share/php/webgrind/source':
-    command => "mkdir -p ${webroot_location}",
+    command => "mkdir -p /usr/share/php/webgrind/source",
     creates => '/usr/share/php/webgrind/source',
   }  
   
