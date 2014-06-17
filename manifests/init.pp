@@ -15,13 +15,11 @@
 # === Requirements
 #
 # This class requires the apache class from PuppetLabs.
-class webgrind($domain = 'webgrind.drupal.dev') {  
-  File { '/usr/share/php/webgrind/source/index.php':
-    ensure => directory,
-    owner => 'root',
-    group => 'root',
-    mode  => '0644',
-  }
+class webgrind($domain = 'webgrind.drupal.dev') {   
+  exec { 'exec mkdir -p /usr/share/php/webgrind/source':
+    command => "mkdir -p ${webroot_location}",
+    creates => '/usr/share/php/webgrind/source',
+  }  
   
   apache::vhost { $domain:
     docroot     => '/usr/share/php/webgrind/source',
@@ -29,7 +27,7 @@ class webgrind($domain = 'webgrind.drupal.dev') {
     ssl         => false,
     serveradmin => 'admin@localhost.com',
     override    => 'All',
-    require     => Exec['php-move-webgrind'],
+    require     => Exec['exec mkdir -p /usr/share/php/webgrind/source'],
   }  
 
   exec { 'php-download-webgrind':
