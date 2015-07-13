@@ -19,15 +19,6 @@ class webgrind() {
     command => "mkdir -p /usr/share/php/webgrind/source",
     creates => '/usr/share/php/webgrind/source',
   }  
-  
-  apache::vhost { $domain:
-    docroot     => '/usr/share/php/webgrind/source',
-    port        => '80',
-    ssl         => false,
-    serveradmin => 'admin@localhost.com',
-    override    => 'All',
-    require     => Exec['exec mkdir -p /usr/share/php/webgrind/source'],
-  }  
 
   exec { 'php-download-webgrind':
     cwd     => '/tmp',
